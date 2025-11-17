@@ -7,7 +7,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%238B4513'/%3E%3Cpath d='M25 35h50v8H25z' fill='%23FFF8DC'/%3E%3Cpath d='M25 48h50v8H25z' fill='%23FFF8DC'/%3E%3Cpath d='M25 61h50v8H25z' fill='%23FFF8DC'/%3E%3Ccircle cx='20' cy='39' r='3' fill='%2328a745'/%3E%3Ccircle cx='20' cy='52' r='3' fill='%23dc3545'/%3E%3Ccircle cx='20' cy='65' r='3' fill='%2328a745'/%3E%3C/svg%3E" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Iceberg&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -41,7 +41,7 @@
         }
 
         body {
-            font-family: 'Italiana', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Philosopher', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--dark-text);
             line-height: 1.6;
@@ -56,9 +56,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-family: 'Iceberg', serif;
         }
 
         .app-header h1 {
+            font-family: 'Iceberg', serif;
             font-size: 1.75rem;
             font-weight: 600;
         }
@@ -75,11 +77,13 @@
             font-weight: 500;
             padding: 0.25rem 0.5rem;
             border-bottom: 2px solid transparent;
-            transition: color 0.2s ease, border-color 0.2s ease;
+            transition: all 0.3s ease;
+            transform: scale(1);
         }
 
         .nav-link:hover {
             color: var(--light-grey);
+            transform: scale(1.05);
         }
 
         .nav-link.active {
@@ -116,10 +120,15 @@
 
         .page {
             display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
         }
 
         .page.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .page-header {
@@ -130,6 +139,7 @@
         }
         
         .page-header h2 {
+            font-family: 'Iceberg', serif;
             font-size: 1.5rem;
             font-weight: 600;
         }
@@ -276,7 +286,7 @@
             cursor: pointer;
             padding: 0.5rem;
             border-radius: 8px;
-            font-family: 'Italiana', 'Inter', sans-serif;
+            font-family: 'Philosopher', sans-serif;
             transition: background 0.2s ease;
         }
 
@@ -343,7 +353,7 @@
             border: none;
             cursor: pointer;
             font-weight: 500;
-            font-family: 'Italiana', 'Inter', sans-serif;
+            font-family: 'Philosopher', sans-serif;
             color: var(--grey-text);
             border-bottom: 2px solid transparent;
             transition: all 0.2s ease;
@@ -352,7 +362,7 @@
         .auth-tab.active {
             color: var(--primary);
             border-bottom-color: var(--primary);
-            font-family: 'Italiana', 'Inter', sans-serif;
+            font-family: 'Philosopher', sans-serif;
         }
 
         .auth-form {
@@ -380,6 +390,16 @@
             box-shadow: var(--shadow);
             font-size: 1.1rem;
             font-weight: 500;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.4s ease forwards;
+        }
+        
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .subject-row-right {
@@ -479,6 +499,7 @@
         }
 
         .settings-header h3 {
+            font-family: 'Iceberg', serif;
             font-size: 1.3rem;
             font-weight: 600;
         }
@@ -492,7 +513,7 @@
             cursor: pointer;
             font-size: 0.95rem;
             font-weight: 500;
-            font-family: 'Italiana', 'Inter', sans-serif;
+            font-family: 'Philosopher', sans-serif;
             transition: all 0.2s ease;
         }
         
@@ -527,7 +548,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 1rem;
-            font-family: 'Italiana', 'Inter', sans-serif;
+            font-family: 'Philosopher', sans-serif;
         }
         
         .settings-list-item {
@@ -573,6 +594,22 @@
         
         .modal-overlay.show {
             display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.show .modal-content {
+            animation: slideInUp 0.3s ease;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
         .modal-content {
@@ -592,6 +629,7 @@
         }
 
         .modal-header h4 {
+            font-family: 'Iceberg', serif;
             font-size: 1.4rem;
         }
         
@@ -601,7 +639,7 @@
             font-size: 1.75rem;
             cursor: pointer;
             color: var(--grey-text);
-            font-family: 'Italiana', 'Inter', sans-serif;
+            font-family: 'Philosopher', sans-serif;
         }
         
         .modal-footer {
@@ -785,10 +823,10 @@
     <main>
         <div class="user-bar">
             <div>
-                <span class="user-info" id="user-info-name">Hello, Lyssa</span><br>
-                <span class="user-major" id="user-info-major">ITE</span>
+                <span class="user-info" id="user-info-name">Hello, Student</span><br>
+                <span class="user-major" id="user-info-major">Your Major</span>
             </div>
-            <span class="user-semester" id="user-info-semester">Semester I, Year II</span>
+            <span class="user-semester" id="user-info-semester">No semester selected</span>
         </div>
 
         <div class="page active" data-page="Home">
@@ -870,6 +908,17 @@
                 </div>
                 <div id="auth-status" style="margin-bottom: 1rem; padding: 0.75rem; border-radius: 8px; font-size: 0.9rem;"></div>
                 <button class="btn btn-green" id="save-profile-btn">Save Profile</button>
+            </div>
+            
+            <div class="settings-section" id="account-management" style="display: none;">
+                <div class="settings-header">
+                    <h3>Account Management</h3>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <button class="btn" id="change-password-btn">Change Password</button>
+                    <button class="btn" id="change-email-btn">Change Email</button>
+                    <button class="btn btn-red" id="delete-account-btn">Delete Account</button>
+                </div>
             </div>
             
             <div class="settings-section">
@@ -1029,23 +1078,60 @@
                 
                 <div class="auth-form" id="signup-form" style="display: none;">
                     <div class="form-group">
+                        <label for="signup-name">Name</label>
+                        <input type="text" id="signup-name" class="form-input" placeholder="Your Name" autocomplete="off">
+                    </div>
+                    <div class="form-group">
                         <label for="signup-email">Email</label>
                         <input type="email" id="signup-email" class="form-input" placeholder="your@email.com" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password" class="form-input" placeholder="Password (min 6 characters)" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-name">Name</label>
-                        <input type="text" id="signup-name" class="form-input" placeholder="Your Name" autocomplete="off">
+                        <input type="password" id="signup-password" class="form-input" placeholder="Min 6 chars, 1 capital, 1 number" autocomplete="off">
+                        <div id="password-strength" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
                     </div>
                     <button class="btn btn-green" id="signup-btn" style="width: 100%; margin-top: 1rem;">Create Account</button>
                 </div>
                 
-                <div style="text-align: center; margin: 1.5rem 0; color: var(--grey-text);">or</div>
-                
-                <button class="btn" id="continue-anonymous-btn" style="width: 100%; background: var(--light-grey); color: var(--dark-text);">Continue Without Account</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Input Modal -->
+    <div class="modal-overlay" id="input-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="input-modal-title">Input Required</h4>
+                <button class="modal-close-btn" data-modal-close="input-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="input-modal-message"></p>
+                <div class="form-group">
+                    <input type="text" id="input-modal-field" class="form-input" placeholder="Enter value">
+                    <div id="input-modal-validation" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-modal-close="input-modal">Cancel</button>
+                <button class="btn btn-green" id="input-modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="confirm-modal-title">Confirm Action</h4>
+                <button class="modal-close-btn" data-modal-close="confirm-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-modal-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-modal-close="confirm-modal">Cancel</button>
+                <button class="btn btn-red" id="confirm-modal-confirm">Confirm</button>
             </div>
         </div>
     </div>
@@ -1054,11 +1140,17 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
             getAuth, 
-            signInAnonymously, 
             signInWithEmailAndPassword,
             createUserWithEmailAndPassword,
             signOut,
-            onAuthStateChanged 
+            onAuthStateChanged,
+            sendEmailVerification,
+            sendPasswordResetEmail,
+            updateEmail,
+            updatePassword,
+            deleteUser,
+            reauthenticateWithCredential,
+            EmailAuthProvider
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { 
             getFirestore, 
@@ -1085,6 +1177,7 @@
         let allAttendance = [];
         let currentPage = 'Home';
         let isAnonymous = false;
+        let loginAttempts = {};
 
         const appId = 'attendance-tracker-app';
         const firebaseConfig = {
@@ -1340,6 +1433,22 @@
             
             document.getElementById('save-subject-btn').addEventListener('click', handleSaveSubject);
             document.getElementById('save-semester-btn').addEventListener('click', handleSaveSemester);
+            
+            // Enter key submit for subject modal
+            document.getElementById('subject-modal').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSaveSubject();
+                }
+            });
+            
+            // Enter key submit for semester modal
+            document.getElementById('semester-modal').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSaveSemester();
+                }
+            });
         }
 
         function initializeAuth() {
@@ -1359,7 +1468,25 @@
             document.getElementById('signout-btn').addEventListener('click', handleSignOut);
             document.getElementById('signin-btn').addEventListener('click', handleSignIn);
             document.getElementById('signup-btn').addEventListener('click', handleSignUp);
-            document.getElementById('continue-anonymous-btn').addEventListener('click', handleContinueAnonymous);
+            
+            // Enter key submit for signin form
+            document.getElementById('signin-form').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSignIn();
+                }
+            });
+            
+            // Enter key submit for signup form
+            document.getElementById('signup-form').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSignUp();
+                }
+            });
+            
+            // Password strength indicator
+            document.getElementById('signup-password').addEventListener('input', updatePasswordStrength);
         }
 
         async function handleSignIn() {
@@ -1371,12 +1498,58 @@
                 return;
             }
             
+            if (!loginAttempts[email]) {
+                loginAttempts[email] = 0;
+            }
+            
+            if (loginAttempts[email] >= 5) {
+                showToast('Account locked. Contact admin at lyssa.phat@gmail.com');
+                return;
+            }
+            
             try {
                 await signInWithEmailAndPassword(auth, email, password);
+                loginAttempts[email] = 0;
                 closeModal('auth-modal');
                 showToast('Signed in successfully!');
             } catch (error) {
-                showToast('Sign in failed: ' + error.message);
+                if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    loginAttempts[email]++;
+                    
+                    if (loginAttempts[email] >= 5) {
+                        showToast('Too many failed attempts. Account locked. Contact admin at lyssa.phat@gmail.com');
+                    } else if (loginAttempts[email] > 1) {
+                        showResetPasswordOption(email);
+                        showToast(`Wrong password. ${5 - loginAttempts[email]} attempts remaining.`);
+                    } else {
+                        showToast('Wrong password. Try again.');
+                    }
+                } else {
+                    showToast('Sign in failed: ' + error.message);
+                }
+            }
+        }
+        
+        function showResetPasswordOption(email) {
+            const resetBtn = document.getElementById('reset-password-btn');
+            if (!resetBtn) {
+                const btn = document.createElement('button');
+                btn.id = 'reset-password-btn';
+                btn.className = 'btn';
+                btn.textContent = 'Reset Password';
+                btn.style.width = '100%';
+                btn.style.marginTop = '0.5rem';
+                btn.onclick = () => handlePasswordReset(email);
+                document.getElementById('signin-form').appendChild(btn);
+            }
+        }
+        
+        async function handlePasswordReset(email) {
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast('Password reset email sent!');
+            } catch (error) {
+                showToast('Failed to send reset email: ' + error.message);
             }
         }
 
@@ -1390,29 +1563,24 @@
                 return;
             }
             
-            if (password.length < 6) {
-                showToast('Password must be at least 6 characters');
+            const validation = validatePassword(password);
+            if (!validation.valid) {
+                showToast('Password must be at least 6 characters with 1 capital letter and 1 number');
                 return;
             }
             
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                await sendEmailVerification(userCredential.user);
                 await setDoc(doc(db, paths.userProfile()), { name, major: '' }, { merge: true });
                 closeModal('auth-modal');
-                showToast('Account created successfully!');
+                showToast('Account created! Please check your email to verify your account.');
             } catch (error) {
                 showToast('Sign up failed: ' + error.message);
             }
         }
 
-        async function handleContinueAnonymous() {
-            try {
-                await signInAnonymously(auth);
-                closeModal('auth-modal');
-            } catch (error) {
-                showToast('Error: ' + error.message);
-            }
-        }
+
 
         async function handleSignOut() {
             try {
@@ -1422,29 +1590,276 @@
                 showToast('Sign out failed: ' + error.message);
             }
         }
+        
+        async function sendVerificationEmail() {
+            try {
+                await sendEmailVerification(auth.currentUser);
+                showToast('Verification email sent! Please check your inbox.');
+            } catch (error) {
+                showToast('Failed to send verification email: ' + error.message);
+            }
+        }
+        
+        window.sendVerificationEmail = sendVerificationEmail;
+        
+        function validatePassword(password) {
+            const hasCapital = /[A-Z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+            const minLength = password.length >= 6;
+            
+            return {
+                valid: hasCapital && hasNumber && minLength,
+                hasCapital,
+                hasNumber,
+                minLength
+            };
+        }
+        
+        function getPasswordStrength(password) {
+            let score = 0;
+            if (password.length >= 6) score++;
+            if (password.length >= 8) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            
+            if (score <= 2) return { strength: 'Weak', color: 'var(--red)' };
+            if (score <= 4) return { strength: 'Medium', color: 'var(--yellow-dark)' };
+            return { strength: 'Strong', color: 'var(--green)' };
+        }
+        
+        function updatePasswordStrength() {
+            const password = document.getElementById('signup-password').value;
+            const strengthEl = document.getElementById('password-strength');
+            
+            if (!password) {
+                strengthEl.innerHTML = '';
+                return;
+            }
+            
+            const validation = validatePassword(password);
+            const strength = getPasswordStrength(password);
+            
+            let requirements = [];
+            if (!validation.minLength) requirements.push('6+ characters');
+            if (!validation.hasCapital) requirements.push('1 capital letter');
+            if (!validation.hasNumber) requirements.push('1 number');
+            
+            strengthEl.innerHTML = `
+                <div style="color: ${strength.color}; font-weight: 500;">Strength: ${strength.strength}</div>
+                ${requirements.length > 0 ? `<div style="color: var(--red); font-size: 0.8rem;">Missing: ${requirements.join(', ')}</div>` : ''}
+            `;
+        }
+        
+        function showInputModal(title, message, placeholder = '', isPassword = false, validatePassword = false, currentPassword = null) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('input-modal');
+                const titleEl = document.getElementById('input-modal-title');
+                const messageEl = document.getElementById('input-modal-message');
+                const inputEl = document.getElementById('input-modal-field');
+                const validationEl = document.getElementById('input-modal-validation');
+                const confirmBtn = document.getElementById('input-modal-confirm');
+                
+                titleEl.textContent = title;
+                messageEl.textContent = message;
+                inputEl.placeholder = placeholder;
+                inputEl.type = isPassword ? 'password' : 'text';
+                inputEl.value = '';
+                validationEl.innerHTML = '';
+                
+                const updateValidation = () => {
+                    if (!validatePassword || !inputEl.value) {
+                        validationEl.innerHTML = '';
+                        confirmBtn.disabled = false;
+                        return;
+                    }
+                    
+                    const password = inputEl.value;
+                    const validation = validatePassword ? window.validatePassword(password) : { valid: true };
+                    const strength = getPasswordStrength(password);
+                    
+                    let requirements = [];
+                    if (!validation.minLength) requirements.push('6+ characters');
+                    if (!validation.hasCapital) requirements.push('1 capital letter');
+                    if (!validation.hasNumber) requirements.push('1 number');
+                    
+                    let samePassword = currentPassword && password === currentPassword;
+                    if (samePassword) requirements.push('must be different from current');
+                    
+                    const isValid = validation.valid && !samePassword;
+                    confirmBtn.disabled = !isValid;
+                    
+                    validationEl.innerHTML = `
+                        <div style="color: ${strength.color}; font-weight: 500;">Strength: ${strength.strength}</div>
+                        ${requirements.length > 0 ? `<div style="color: var(--red); font-size: 0.8rem;">Missing: ${requirements.join(', ')}</div>` : ''}
+                    `;
+                };
+                
+                const handleConfirm = () => {
+                    const value = inputEl.value;
+                    closeModal('input-modal');
+                    cleanup();
+                    resolve(value);
+                };
+                
+                const handleCancel = () => {
+                    closeModal('input-modal');
+                    cleanup();
+                    resolve(null);
+                };
+                
+                const cleanup = () => {
+                    confirmBtn.removeEventListener('click', handleConfirm);
+                    modal.removeEventListener('click', handleModalClick);
+                    inputEl.removeEventListener('keypress', handleKeyPress);
+                    inputEl.removeEventListener('input', updateValidation);
+                };
+                
+                const handleModalClick = (e) => {
+                    if (e.target.dataset.modalClose === 'input-modal') handleCancel();
+                };
+                
+                const handleKeyPress = (e) => {
+                    if (e.key === 'Enter' && !confirmBtn.disabled) handleConfirm();
+                };
+                
+                confirmBtn.addEventListener('click', handleConfirm);
+                modal.addEventListener('click', handleModalClick);
+                inputEl.addEventListener('keypress', handleKeyPress);
+                
+                if (validatePassword) {
+                    inputEl.addEventListener('input', updateValidation);
+                    window.validatePassword = validatePassword;
+                }
+                
+                openModal('input-modal');
+                inputEl.focus();
+            });
+        }
+        
+        function showConfirmModal(title, message) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('confirm-modal');
+                const titleEl = document.getElementById('confirm-modal-title');
+                const messageEl = document.getElementById('confirm-modal-message');
+                const confirmBtn = document.getElementById('confirm-modal-confirm');
+                
+                titleEl.textContent = title;
+                messageEl.textContent = message;
+                
+                const handleConfirm = () => {
+                    closeModal('confirm-modal');
+                    cleanup();
+                    resolve(true);
+                };
+                
+                const handleCancel = () => {
+                    closeModal('confirm-modal');
+                    cleanup();
+                    resolve(false);
+                };
+                
+                const cleanup = () => {
+                    confirmBtn.removeEventListener('click', handleConfirm);
+                    modal.removeEventListener('click', handleModalClick);
+                };
+                
+                const handleModalClick = (e) => {
+                    if (e.target.dataset.modalClose === 'confirm-modal') handleCancel();
+                };
+                
+                confirmBtn.addEventListener('click', handleConfirm);
+                modal.addEventListener('click', handleModalClick);
+                
+                openModal('confirm-modal');
+            });
+        }
+        
+        async function handleChangePassword() {
+            const currentPassword = await showInputModal('Change Password', 'Enter your current password:', 'Current password', true);
+            if (!currentPassword) return;
+            
+            // Verify current password immediately
+            try {
+                const credential = EmailAuthProvider.credential(auth.currentUser.email, currentPassword);
+                await reauthenticateWithCredential(auth.currentUser, credential);
+            } catch (error) {
+                showToast('Current password is incorrect');
+                return;
+            }
+            
+            const newPassword = await showInputModal('Change Password', 'Enter new password (min 6 chars, 1 capital, 1 number):', 'New password', true, validatePassword, currentPassword);
+            if (!newPassword) return;
+            
+            try {
+                await updatePassword(auth.currentUser, newPassword);
+                showToast('Password updated successfully!');
+            } catch (error) {
+                showToast('Failed to update password: ' + error.message);
+            }
+        }
+        
+        async function handleChangeEmail() {
+            const newEmail = await showInputModal('Change Email', 'Enter new email address:', 'New email');
+            if (!newEmail) return;
+            
+            const password = await showInputModal('Change Email', 'Enter your current password to confirm:', 'Current password', true);
+            if (!password) return;
+            
+            try {
+                const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
+                await reauthenticateWithCredential(auth.currentUser, credential);
+                await updateEmail(auth.currentUser, newEmail);
+                await sendEmailVerification(auth.currentUser);
+                showToast('Email updated! Please verify your new email address.');
+            } catch (error) {
+                showToast('Failed to update email: ' + error.message);
+            }
+        }
+        
+        async function handleDeleteAccount() {
+            const confirmation = await showConfirmModal('Delete Account', 'Are you sure you want to delete your account? This action cannot be undone.');
+            if (!confirmation) return;
+            
+            const password = await showInputModal('Delete Account', 'Enter your password to confirm account deletion:', 'Password', true);
+            if (!password) return;
+            
+            try {
+                const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
+                await reauthenticateWithCredential(auth.currentUser, credential);
+                await deleteUser(auth.currentUser);
+                showToast('Account deleted successfully.');
+            } catch (error) {
+                showToast('Failed to delete account: ' + error.message);
+            }
+        }
 
         function updateAuthUI(user) {
             const authBtn = document.getElementById('auth-btn');
             const signoutBtn = document.getElementById('signout-btn');
             const authStatus = document.getElementById('auth-status');
+            const accountMgmt = document.getElementById('account-management');
             
             if (user) {
                 isAnonymous = user.isAnonymous;
                 
-                if (user.isAnonymous) {
-                    authBtn.textContent = 'Create Account';
-                    authBtn.style.display = 'inline-block';
-                    signoutBtn.style.display = 'none';
-                    authStatus.innerHTML = '<div style="background: var(--yellow); color: var(--dark-text); padding: 0.5rem; border-radius: 6px;">⚠️ Using temporary account - data may be lost</div>';
+                if (!user.emailVerified) {
+                    authBtn.style.display = 'none';
+                    signoutBtn.style.display = 'inline-block';
+                    accountMgmt.style.display = 'block';
+                    authStatus.innerHTML = `<div style="background: var(--yellow); color: var(--dark-text); padding: 0.5rem; border-radius: 6px;">⚠️ Email not verified - ${user.email} <button onclick="sendVerificationEmail()" style="margin-left: 0.5rem; padding: 0.25rem 0.5rem; border: none; border-radius: 4px; background: var(--primary); color: white; cursor: pointer;">Resend</button></div>`;
                 } else {
                     authBtn.style.display = 'none';
                     signoutBtn.style.display = 'inline-block';
+                    accountMgmt.style.display = 'block';
                     authStatus.innerHTML = `<div style="background: var(--green); color: white; padding: 0.5rem; border-radius: 6px;">✓ Signed in as ${user.email}</div>`;
                 }
             } else {
                 authBtn.textContent = 'Sign In';
                 authBtn.style.display = 'inline-block';
                 signoutBtn.style.display = 'none';
+                accountMgmt.style.display = 'none';
                 authStatus.innerHTML = '<div style="background: var(--red); color: white; padding: 0.5rem; border-radius: 6px;">Not signed in</div>';
             }
         }
@@ -1522,6 +1937,7 @@
                 link.classList.toggle('active', link.dataset.page === pageName);
             });
             
+            // Update active page
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.toggle('active', page.dataset.page === pageName);
             });
@@ -1581,14 +1997,14 @@
                 return;
             }
             
-            container.innerHTML = subjectsToday.map(subject => {
+            container.innerHTML = subjectsToday.map((subject, index) => {
                 const record = attendanceToday.find(r => r.subjectId === subject.id);
                 const status = record ? record.status : "Select";
                 const statusClass = record ? `status-${status.toLowerCase()}` : "status-present";
                 const isDisabled = !!record;
                 
                 return `
-                <div class="data-row" id="subject-row-${subject.id}">
+                <div class="data-row" id="subject-row-${subject.id}" style="animation-delay: ${index * 0.1}s;">
                     <span>${subject.name}</span>
                     <div class="subject-row-right">
                         <div class="custom-dropdown status-dropdown" data-value="${status}" data-subject-id="${subject.id}">
@@ -1743,7 +2159,7 @@
                 return;
             }
             
-            container.innerHTML = currentSemSubjects.map(subject => {
+            container.innerHTML = currentSemSubjects.map((subject, index) => {
                 // Get ALL attendance records for this subject across the ENTIRE semester
                 const subjectAttendance = currentSemAttendance.filter(r => r.subjectId === subject.id);
                 
@@ -1766,7 +2182,7 @@
                 
                 return `
                 <div class="total-subject-row">
-                    <div class="data-row">
+                    <div class="data-row" style="animation-delay: ${index * 0.1}s;">
                         <div>
                             <div style="font-weight: 600; margin-bottom: 0.25rem;">${subject.name}</div>
                             <div style="font-size: 0.9rem; color: ${warning.color}; font-weight: 500;">${warning.status}</div>
@@ -1849,6 +2265,29 @@
             
             document.getElementById('save-profile-btn').addEventListener('click', handleSaveProfile);
             document.getElementById('current-semester-dropdown').addEventListener('change', handleCurrentSemesterChange);
+            
+            // Account management buttons
+            const changePasswordBtn = document.getElementById('change-password-btn');
+            const changeEmailBtn = document.getElementById('change-email-btn');
+            const deleteAccountBtn = document.getElementById('delete-account-btn');
+            
+            if (changePasswordBtn) changePasswordBtn.addEventListener('click', handleChangePassword);
+            if (changeEmailBtn) changeEmailBtn.addEventListener('click', handleChangeEmail);
+            if (deleteAccountBtn) deleteAccountBtn.addEventListener('click', handleDeleteAccount);
+            
+            // Enter key submit for profile inputs
+            document.getElementById('setting-name').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSaveProfile();
+                }
+            });
+            document.getElementById('setting-major').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSaveProfile();
+                }
+            });
             
             document.querySelectorAll('.btn-edit-semester').forEach(btn => btn.addEventListener('click', (e) => {
                 const id = e.target.closest('.settings-list-item').dataset.id;
@@ -1980,7 +2419,7 @@
                     currentSemesterId = userProfile.currentSemesterId || null;
                 } else {
                     setDoc(doc(db, paths.userProfile()), {
-                        name: "New User",
+                        name: "Student",
                         major: "Your Major",
                         currentSemesterId: null
                     }, { merge: true });
