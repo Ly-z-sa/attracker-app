@@ -16,3 +16,16 @@
 - Improve security
 - bugs fixed
 - improve performance
+
+# APP-Version: 2.1.1.0
+# Patch note (Third Update 19/11/2025)
+- Improve Performance
+- Smoother animation
+- Brand new customization function
+- Introducing Dark Mode
+- Logo and branding rework
+- Alert system improvement 
+- Better mobile optimization
+- User can now export attendance data to excel
+- Brand new streak system
+- User can now report bugs or crashes.
