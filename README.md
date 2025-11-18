@@ -11,8 +11,8 @@
 
 # APP-Version: 2.0.3.4
 # Patch note (Second Update 18/11/2025)
--Update Privacy Policy and Terms of Service
--Users can now recieve alert notification
--Improve security
--bugs fixed
--improve performance
+- Update Privacy Policy and Terms of Service
+- Users can now recieve alert notification
+- Improve security
+- bugs fixed
+- improve performance
