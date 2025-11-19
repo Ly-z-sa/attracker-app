@@ -17,7 +17,7 @@
 - bugs fixed
 - improve performance
 
-# APP-Version: 2.1.1.1
+# APP-Version: 2.1.1.3
 # Patch note (Third Update 19/11/2025)
 - Improve Performance
 - Smoother animation
