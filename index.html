@@ -1271,7 +1271,7 @@
                 <div class="settings-content collapsed" id="semesters-content">
                     <p style="margin-bottom: 1rem; color: var(--grey-text);">Manage your academic semesters:</p>
                     <div class="form-group">
-                        <label for="setting-current-semester">Current Semester</label>
+                        <label>Current Semester</label>
                         <div class="custom-dropdown" id="current-semester-dropdown">
                             <div class="dropdown-selected">
                                 <span id="current-semester-display">Select a semester...</span>
@@ -1406,7 +1406,7 @@
                     <input type="text" id="subject-modal-name" class="form-input" placeholder="e.g., Mathematics" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="subject-modal-day">Day of Week</label>
+                    <label>Day of Week</label>
                     <div class="custom-dropdown" id="subject-modal-day-dropdown">
                         <div class="dropdown-selected">
                             <span id="subject-modal-day-display">Select a day...</span>
@@ -1444,7 +1444,7 @@
                     <input type="text" id="semester-modal-name" class="form-input" placeholder="e.g., Year 1, Semester I" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="semester-modal-start-date">Start Date</label>
+                    <label>Start Date</label>
                     <div class="custom-date-picker" id="semester-start-date-picker">
                         <div class="date-picker-selected">
                             <span id="semester-start-date-display">Select start date</span>
@@ -1462,7 +1462,7 @@
                     <input type="hidden" id="semester-modal-start-date">
                 </div>
                 <div class="form-group">
-                    <label for="semester-modal-end-date">End Date</label>
+                    <label>End Date</label>
                     <div class="custom-date-picker" id="semester-end-date-picker">
                         <div class="date-picker-selected">
                             <span id="semester-end-date-display">Select end date</span>
@@ -1594,7 +1594,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="report-type">Problem Type</label>
+                    <label>Problem Type</label>
                     <div class="custom-dropdown" id="report-type-dropdown">
                         <div class="dropdown-selected">
                             <span id="report-type-display">Select problem type...</span>
@@ -2194,19 +2194,57 @@
         }
         
         function initializeModals() {
-            document.body.addEventListener('click', (e) => {
-                const modalClose = e.target.closest('[data-modal-close]');
-                if (modalClose) {
-                    const modalId = modalClose.dataset.modalClose;
-                    document.getElementById(modalId).classList.remove('show');
+            try {
+                console.log('Initializing modals...');
+                
+                document.body.addEventListener('click', (e) => {
+                    const modalClose = e.target.closest('[data-modal-close]');
+                    if (modalClose) {
+                        const modalId = modalClose.dataset.modalClose;
+                        const modal = document.getElementById(modalId);
+                        if (modal) {
+                            modal.classList.remove('show');
+                        }
+                    }
+                });
+                
+                // Add subject button
+                const addSubjectBtn = document.getElementById('add-subject-btn');
+                if (addSubjectBtn) {
+                    addSubjectBtn.addEventListener('click', () => {
+                        console.log('Add subject button clicked');
+                        openSubjectModal();
+                    });
+                } else {
+                    console.error('Add subject button not found');
                 }
-            });
-            
-            document.getElementById('add-subject-btn').addEventListener('click', () => openSubjectModal());
-            document.getElementById('add-semester-btn').addEventListener('click', () => openSemesterModal());
-            
-            document.getElementById('save-subject-btn').addEventListener('click', handleSaveSubject);
-            document.getElementById('save-semester-btn').addEventListener('click', handleSaveSemester);
+                
+                // Add semester button
+                const addSemesterBtn = document.getElementById('add-semester-btn');
+                if (addSemesterBtn) {
+                    addSemesterBtn.addEventListener('click', () => {
+                        console.log('Add semester button clicked');
+                        openSemesterModal();
+                    });
+                } else {
+                    console.error('Add semester button not found');
+                }
+                
+                // Save buttons
+                const saveSubjectBtn = document.getElementById('save-subject-btn');
+                if (saveSubjectBtn) {
+                    saveSubjectBtn.addEventListener('click', handleSaveSubject);
+                }
+                
+                const saveSemesterBtn = document.getElementById('save-semester-btn');
+                if (saveSemesterBtn) {
+                    saveSemesterBtn.addEventListener('click', handleSaveSemester);
+                }
+                
+                console.log('Modals initialized successfully');
+            } catch (error) {
+                console.error('Error initializing modals:', error);
+            }
             
             // Form navigation for subject modal
             document.getElementById('subject-modal-name').addEventListener('keypress', (e) => {
@@ -2239,22 +2277,56 @@
         }
 
         function initializeAuth() {
-            document.querySelectorAll('.auth-tab').forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    const tabType = e.target.dataset.tab;
-                    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-                    e.target.classList.add('active');
-                    
-                    document.getElementById('signin-form').style.display = tabType === 'signin' ? 'block' : 'none';
-                    document.getElementById('signup-form').style.display = tabType === 'signup' ? 'block' : 'none';
-                    document.getElementById('auth-modal-title').textContent = tabType === 'signin' ? 'Sign In' : 'Sign Up';
+            try {
+                console.log('Initializing auth...');
+                
+                document.querySelectorAll('.auth-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const tabType = e.target.dataset.tab;
+                        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                        e.target.classList.add('active');
+                        
+                        document.getElementById('signin-form').style.display = tabType === 'signin' ? 'block' : 'none';
+                        document.getElementById('signup-form').style.display = tabType === 'signup' ? 'block' : 'none';
+                        document.getElementById('auth-modal-title').textContent = tabType === 'signin' ? 'Sign In' : 'Sign Up';
+                    });
                 });
-            });
-            
-            document.getElementById('auth-btn').addEventListener('click', () => openModal('auth-modal'));
-            document.getElementById('signout-btn').addEventListener('click', handleSignOut);
-            document.getElementById('signin-btn').addEventListener('click', handleSignIn);
-            document.getElementById('signup-btn').addEventListener('click', handleSignUp);
+                
+                // Auth button
+                const authBtn = document.getElementById('auth-btn');
+                if (authBtn) {
+                    authBtn.addEventListener('click', () => {
+                        console.log('Auth button clicked');
+                        openModal('auth-modal');
+                    });
+                }
+                
+                // Sign out button
+                const signoutBtn = document.getElementById('signout-btn');
+                if (signoutBtn) {
+                    signoutBtn.addEventListener('click', () => {
+                        console.log('Sign out button clicked');
+                        handleSignOut();
+                    });
+                } else {
+                    console.error('Sign out button not found');
+                }
+                
+                // Sign in/up buttons
+                const signinBtn = document.getElementById('signin-btn');
+                if (signinBtn) {
+                    signinBtn.addEventListener('click', handleSignIn);
+                }
+                
+                const signupBtn = document.getElementById('signup-btn');
+                if (signupBtn) {
+                    signupBtn.addEventListener('click', handleSignUp);
+                }
+                
+                console.log('Auth initialized successfully');
+            } catch (error) {
+                console.error('Error initializing auth:', error);
+            }
             
             // Form navigation for signin
             document.getElementById('signin-email').addEventListener('keypress', (e) => {
@@ -2900,7 +2972,10 @@
         }
         
         function openModal(modalId) {
-            document.getElementById(modalId).classList.add('show');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+            }
         }
         
         function closeModal(modalId) {
@@ -2999,6 +3074,9 @@
                     renderSettingsPage();
                     break;
             }
+            
+            // Re-attach button listeners after page render
+            setTimeout(fixButtons, 100);
         }
         
         function renderHeader() {
@@ -3691,6 +3769,9 @@
                     
                     navigateTo('Home');
                     
+                    // Fix buttons after everything loads
+                    setTimeout(fixButtons, 1000);
+                    
                     // Request notification permission immediately after login
                     if ('Notification' in window && Notification.permission === 'default') {
                         requestNotificationPermission();
@@ -3706,28 +3787,39 @@
         }
 
         async function initApp() {
-            if (!firebaseConfig.apiKey || firebaseConfig.apiKey === '<your-api-key>') {
-                document.body.innerHTML = "<h1>Error: Firebase config is missing or invalid.</h1>";
-                console.error("Firebase config is missing or invalid.");
-                return;
+            try {
+                if (!firebaseConfig.apiKey || firebaseConfig.apiKey === '<your-api-key>') {
+                    document.body.innerHTML = "<h1>Error: Firebase config is missing or invalid.</h1>";
+                    console.error("Firebase config is missing or invalid.");
+                    return;
+                }
+                
+                console.log('Fetching real time...');
+                await fetchRealTime();
+                
+                console.log('Initializing Firebase...');
+                setLogLevel('debug');
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                
+                console.log('Initializing UI components...');
+                initializeNavigation();
+                initializeCustomDropdowns();
+                initializeDatePickers();
+                initializeModals();
+                initializeAuth();
+                
+                console.log('Handling authentication...');
+                await handleAuth();
+                
+                console.log('Setting up time sync...');
+                setInterval(fetchRealTime, 60 * 60 * 1000);
+                
+                console.log('App initialization complete');
+            } catch (error) {
+                console.error('Error in initApp:', error);
+                throw error;
             }
-            
-            // Fetch real time first
-            await fetchRealTime();
-            
-            setLogLevel('debug');
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            
-            initializeNavigation();
-            initializeCustomDropdowns();
-            initializeDatePickers();
-            initializeModals();
-            initializeAuth();
-            handleAuth();
-            
-            // Sync time every hour
-            setInterval(fetchRealTime, 60 * 60 * 1000);
         }
 
         // Theme management
@@ -3955,12 +4047,53 @@
             showToast(`${type.charAt(0).toUpperCase() + type.slice(1)} report exported successfully!`);
         }
 
+        // Fix button functionality after page renders
+        function fixButtons() {
+            const addSubjectBtn = document.getElementById('add-subject-btn');
+            if (addSubjectBtn) {
+                addSubjectBtn.onclick = () => openSubjectModal();
+            }
+            
+            const addSemesterBtn = document.getElementById('add-semester-btn');
+            if (addSemesterBtn) {
+                addSemesterBtn.onclick = () => openSemesterModal();
+            }
+            
+            const signoutBtn = document.getElementById('signout-btn');
+            if (signoutBtn) {
+                signoutBtn.onclick = () => handleSignOut();
+            }
+            
+            const authBtn = document.getElementById('auth-btn');
+            if (authBtn) {
+                authBtn.onclick = () => openModal('auth-modal');
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
-            initializeTheme();
-            initializeCollapse();
-            initializeReportProblem();
-            initializeExport();
-            initApp();
+            try {
+                console.log('Initializing app...');
+                
+                // Fix buttons initially
+                setTimeout(fixButtons, 1000);
+                
+                initializeTheme();
+                initializeCollapse();
+                initializeReportProblem();
+                initializeExport();
+                initApp();
+                console.log('App initialized successfully');
+            } catch (error) {
+                console.error('Error during app initialization:', error);
+                // Show user-friendly error message
+                document.body.innerHTML = `
+                    <div style="padding: 2rem; text-align: center; font-family: Arial, sans-serif;">
+                        <h2>⚠️ Application Error</h2>
+                        <p>There was an error loading the application. Please refresh the page.</p>
+                        <button onclick="location.reload()" style="padding: 0.5rem 1rem; margin-top: 1rem; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Refresh Page</button>
+                    </div>
+                `;
+            }
         });
 
     </script>
