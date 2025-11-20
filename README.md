@@ -30,3 +30,18 @@
 - Brand new streak system
 - User can now report bugs or crashes.
 - Major bugs fixed
+
+# APP-Version: 2.1.3.5
+# Patch note (Fourth Update 20/11/2025)
++ New Features
+- Site-wide click spark effects
+- 4 new animated backgrounds: Floating Lines, Prism, Aurora
+- 4 new color schemes: Glass, Crimson, Violet, Emerald
+- 25px rounded corners for all UI elements
+- Hidden scrollbars (all browsers)
+
++ Improvements
+- Glass theme with backdrop blur effects
+- Better dropdown readability
+- Cross-browser compatibility
+- Performance optimizations
