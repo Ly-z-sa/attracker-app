@@ -65,6 +65,16 @@
             padding: 0;
         }
 
+        /* Hide scrollbars for all browsers */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         body {
             font-family: 'Philosopher', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
@@ -120,6 +130,135 @@
             --blue-accent-dark: #191970;
             --yellow: #FFD700;
             --yellow-dark: #FFA500;
+        }
+
+        [data-color-scheme="glass"] {
+            --primary: #5227ff;
+            --primary-light: #7c4dff;
+            --primary-dark: #3f1dcb;
+            --secondary: rgba(82, 39, 255, 0.8);
+            --accent: rgba(124, 77, 255, 0.6);
+            --light-grey: rgba(255, 255, 255, 0.1);
+            --bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --dark-text: #ffffff;
+            --grey-text: rgba(255, 255, 255, 0.7);
+            --light-text: #ffffff;
+            --green: #00ff88;
+            --green-dark: #00cc6a;
+            --red: #ff4757;
+            --red-dark: #ff3742;
+            --blue-accent: #3742fa;
+            --blue-accent-dark: #2f3542;
+            --yellow: #ffa502;
+            --yellow-dark: #ff6348;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        
+        [data-color-scheme="glass"] body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+        }
+        
+        [data-color-scheme="glass"] .app-header,
+        [data-color-scheme="glass"] .user-bar,
+        [data-color-scheme="glass"] .data-row,
+        [data-color-scheme="glass"] .settings-section,
+        [data-color-scheme="glass"] .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        
+        [data-color-scheme="glass"] .dropdown-selected,
+        [data-color-scheme="glass"] .date-picker-selected {
+            background: rgba(82, 39, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        [data-color-scheme="glass"] .dropdown-options,
+        [data-color-scheme="glass"] .date-picker-calendar {
+            background: rgba(82, 39, 255, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        
+        [data-color-scheme="glass"] .dropdown-option {
+            color: white;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        [data-color-scheme="glass"] .dropdown-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        [data-color-scheme="glass"] .custom-dropdown.open {
+            z-index: 1001;
+        }
+        
+        [data-color-scheme="glass"] .custom-dropdown.open::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            backdrop-filter: blur(2px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        [data-color-scheme="crimson"] {
+            --primary: #dc2626;
+            --primary-light: #ef4444;
+            --primary-dark: #b91c1c;
+            --secondary: #f87171;
+            --accent: #fca5a5;
+            --green: #10b981;
+            --green-dark: #059669;
+            --red: #dc2626;
+            --red-dark: #b91c1c;
+            --blue-accent: #3b82f6;
+            --blue-accent-dark: #1d4ed8;
+            --yellow: #f59e0b;
+            --yellow-dark: #d97706;
+        }
+
+        [data-color-scheme="violet"] {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --secondary: #a78bfa;
+            --accent: #c4b5fd;
+            --green: #10b981;
+            --green-dark: #059669;
+            --red: #ef4444;
+            --red-dark: #dc2626;
+            --blue-accent: #3b82f6;
+            --blue-accent-dark: #1d4ed8;
+            --yellow: #f59e0b;
+            --yellow-dark: #d97706;
+        }
+
+        [data-color-scheme="emerald"] {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --primary-dark: #047857;
+            --secondary: #34d399;
+            --accent: #6ee7b7;
+            --green: #10b981;
+            --green-dark: #059669;
+            --red: #ef4444;
+            --red-dark: #dc2626;
+            --blue-accent: #3b82f6;
+            --blue-accent-dark: #1d4ed8;
+            --yellow: #f59e0b;
+            --yellow-dark: #d97706;
         }
 
         [data-font="inter"] body {
@@ -282,7 +421,7 @@
             background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
             color: var(--light-text);
             padding: 0.875rem 1.25rem;
-            border-radius: 12px;
+            border-radius: 25px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -321,7 +460,7 @@
             background: var(--light-grey);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 25px;
             overflow-y: auto;
             z-index: 1000;
             top: 110%;
@@ -371,7 +510,7 @@
             background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
             color: var(--light-text);
             padding: 0.875rem 1.25rem;
-            border-radius: 12px;
+            border-radius: 25px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -393,7 +532,7 @@
             background: var(--light-grey);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 25px;
             z-index: 1001;
             top: 110%;
             left: 0;
@@ -708,7 +847,7 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--light-text);
             padding: 0.6rem 1.2rem;
-            border-radius: 8px;
+            border-radius: 25px;
             border: none;
             cursor: pointer;
             font-size: 0.95rem;
@@ -1355,6 +1494,25 @@
                                 <div class="dropdown-option" data-value="ocean">Ocean Blue</div>
                                 <div class="dropdown-option" data-value="forest">Forest Green</div>
                                 <div class="dropdown-option" data-value="sunset">Sunset Orange</div>
+                                <div class="dropdown-option" data-value="glass">Glass</div>
+                                <div class="dropdown-option" data-value="crimson">Crimson</div>
+                                <div class="dropdown-option" data-value="violet">Violet</div>
+                                <div class="dropdown-option" data-value="emerald">Emerald</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Background</label>
+                        <div class="custom-dropdown" id="background-dropdown">
+                            <div class="dropdown-selected">
+                                <span id="background-display">Default</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                            </div>
+                            <div class="dropdown-options">
+                                <div class="dropdown-option" data-value="default">Default</div>
+                                <div class="dropdown-option" data-value="floating-lines">Floating Lines</div>
+                                <div class="dropdown-option" data-value="prism">Prism</div>
+                                <div class="dropdown-option" data-value="aurora">Aurora</div>
                             </div>
                         </div>
                     </div>
@@ -1389,7 +1547,7 @@
             
             <div style="text-align: center; padding: 1rem; color: var(--grey-text); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 1rem;">
                 <div>© 2025 Attendance Tracker. All rights reserved.</div>
-                <div style="margin-top: 0.25rem;">Version 2.1.1.3</div>
+                <div style="margin-top: 0.25rem;">Version 2.1.3.5</div>
             </div>
         </div>
     </main>
@@ -1621,6 +1779,10 @@
         </div>
     </div>
 
+    <script src="clickspark.js"></script>
+    <script src="floating-lines.js"></script>
+    <script src="prism-background.js"></script>
+    <script src="aurora-background.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
@@ -3870,10 +4032,15 @@
         }
 
         // Theme management
+        let floatingLinesInstance = null;
+        let prismInstance = null;
+        let auroraInstance = null;
+        
         function initializeTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             const savedColorScheme = localStorage.getItem('colorScheme') || 'default';
             const savedFont = localStorage.getItem('font') || 'philosopher';
+            const savedBackground = localStorage.getItem('background') || 'default';
             
             // Ensure default font is applied for new users
             if (!localStorage.getItem('font')) {
@@ -3887,18 +4054,22 @@
             document.documentElement.setAttribute('data-font', savedFont);
             
             updateThemeIcon(savedTheme);
+            initializeBackground(savedBackground);
             
             document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
             
             // Initialize personalization dropdowns
             document.getElementById('color-scheme-dropdown').addEventListener('change', handleColorSchemeChange);
             document.getElementById('font-dropdown').addEventListener('change', handleFontChange);
+            document.getElementById('background-dropdown').addEventListener('change', handleBackgroundChange);
             
             // Set initial dropdown values
             document.getElementById('color-scheme-dropdown').dataset.value = savedColorScheme;
             document.getElementById('color-scheme-display').textContent = getColorSchemeName(savedColorScheme);
             document.getElementById('font-dropdown').dataset.value = savedFont;
             document.getElementById('font-display').textContent = getFontName(savedFont);
+            document.getElementById('background-dropdown').dataset.value = savedBackground;
+            document.getElementById('background-display').textContent = getBackgroundName(savedBackground);
         }
         
         function getColorSchemeName(scheme) {
@@ -3906,7 +4077,11 @@
                 'default': 'Default',
                 'ocean': 'Ocean Blue',
                 'forest': 'Forest Green',
-                'sunset': 'Sunset Orange'
+                'sunset': 'Sunset Orange',
+                'glass': 'Glass',
+                'crimson': 'Crimson',
+                'violet': 'Violet',
+                'emerald': 'Emerald'
             };
             return names[scheme] || 'Default';
         }
@@ -3934,6 +4109,45 @@
             const font = e.currentTarget.dataset.value;
             document.documentElement.setAttribute('data-font', font);
             localStorage.setItem('font', font);
+        }
+        
+        function getBackgroundName(background) {
+            const names = {
+                'default': 'Default',
+                'floating-lines': 'Floating Lines',
+                'prism': 'Prism',
+                'aurora': 'Aurora'
+            };
+            return names[background] || 'Default';
+        }
+        
+        function handleBackgroundChange(e) {
+            const background = e.currentTarget.dataset.value;
+            localStorage.setItem('background', background);
+            initializeBackground(background);
+        }
+        
+        function initializeBackground(background) {
+            if (floatingLinesInstance) {
+                floatingLinesInstance.destroy();
+                floatingLinesInstance = null;
+            }
+            if (prismInstance) {
+                prismInstance.destroy();
+                prismInstance = null;
+            }
+            if (auroraInstance) {
+                auroraInstance.destroy();
+                auroraInstance = null;
+            }
+            
+            if (background === 'floating-lines') {
+                floatingLinesInstance = new FloatingLines();
+            } else if (background === 'prism') {
+                prismInstance = new PrismBackground();
+            } else if (background === 'aurora') {
+                auroraInstance = new AuroraBackground();
+            }
         }
         
         // Collapse functionality
@@ -4135,6 +4349,17 @@
                 initializeReportProblem();
                 initializeExport();
                 initApp();
+                
+                // Initialize ClickSpark site-wide
+                new ClickSpark(document.body, {
+                    sparkColor: '#CD853F',
+                    sparkSize: 12,
+                    sparkRadius: 20,
+                    sparkCount: 10,
+                    duration: 500,
+                    easing: 'ease-out'
+                });
+                
                 console.log('App initialized successfully');
             } catch (error) {
                 console.error('Error during app initialization:', error);
