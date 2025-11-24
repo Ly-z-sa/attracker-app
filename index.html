@@ -1953,11 +1953,12 @@
         }
 
         function calculateWarning(late, permission, absent) {
-            // Calculate warning score using TOTAL semester counts (not weekly)
-            // Formula: absent + (permission + floor(late/3))
-            const score = absent + (permission + Math.floor(late / 3));
+            // Calculate warning score for individual subject
+            // Formula: absent + permission + (late/3) where 3 late = 1 permission
+            const lateAsPermission = late / 3;
+            const score = absent + permission + lateAsPermission;
             
-            if (absent > 2 || score > 4) {
+            if (absent > 2 || (permission + absent) > 4 || score > 4) {
                 return { status: 'RED ERROR WARNING', color: 'var(--red)' };
             } else if (score <= 2) {
                 return { status: 'Good', color: 'var(--green)' };
@@ -2830,22 +2831,28 @@
         
         function checkWarningStatus() {
             const currentSemAttendance = allAttendance.filter(r => r.semesterId === currentSemesterId);
-            const totals = { Present: 0, Absent: 0, Permission: 0, Late: 0 };
+            const currentSemSubjects = allSubjects.filter(s => s.semesterId === currentSemesterId);
             
-            currentSemAttendance.forEach(r => {
-                if (totals.hasOwnProperty(r.status)) {
-                    totals[r.status]++;
+            // Check warning for each subject independently
+            currentSemSubjects.forEach(subject => {
+                const subjectAttendance = currentSemAttendance.filter(r => r.subjectId === subject.id);
+                const counts = { Present: 0, Absent: 0, Permission: 0, Late: 0 };
+                
+                subjectAttendance.forEach(r => {
+                    if (counts.hasOwnProperty(r.status)) {
+                        counts[r.status]++;
+                    }
+                });
+                
+                const warning = calculateWarning(counts.Late, counts.Permission, counts.Absent);
+                
+                if (warning.status === 'FIRST WARNING' || warning.status === 'LAST WARNING' || warning.status === 'RED ERROR WARNING') {
+                    sendNotification(
+                        'Attendance Warning',
+                        `${subject.name}: ${warning.status} - ${counts.Absent} absent, ${counts.Permission} permission, ${counts.Late} late`
+                    );
                 }
             });
-            
-            const warning = calculateWarning(totals.Late, totals.Permission, totals.Absent);
-            
-            if (warning.status === 'FIRST WARNING' || warning.status === 'LAST WARNING' || warning.status === 'RED ERROR WARNING') {
-                sendNotification(
-                    'Attendance Warning',
-                    `${warning.status}: ${totals.Absent} absent, ${totals.Permission} permission, ${totals.Late} late`
-                );
-            }
         }
         
         function scheduleNotifications() {
@@ -3410,14 +3417,28 @@
                 return;
             }
             
-            const todayDate = getTodayDateString();
+            // Use selected date instead of today's date
+            const selectedDate = getSelectedDateString();
+            
+            // Check if attendance already exists for this subject and date
+            const existingRecord = allAttendance.find(r => 
+                r.subjectId === subjectId && 
+                r.date === selectedDate && 
+                r.semesterId === currentSemesterId
+            );
+            
+            if (existingRecord) {
+                showToast('Attendance already submitted for this subject on this date.');
+                return;
+            }
+            
             const currentSem = allSemesters.find(s => s.id === currentSemesterId);
-            const semesterWeek = getSemesterWeek(todayDate, currentSem);
+            const semesterWeek = getSemesterWeek(selectedDate, currentSem);
             
             const record = {
                 subjectId: subjectId,
                 semesterId: currentSemesterId,
-                date: todayDate,
+                date: selectedDate,
                 status: status,
                 semesterWeek: semesterWeek,
                 createdAt: serverTimestamp()
@@ -3426,10 +3447,14 @@
             try {
                 showCuteLoader();
                 btn.classList.add('loading');
+                
+                // Disable button immediately to prevent double-clicks
+                btn.disabled = true;
+                
                 await addDoc(collection(db, paths.attendance()), record);
                 hideCuteLoader();
                 btn.classList.remove('loading');
-                showToast('Attendance saved! 💕');
+                showToast('Attendance saved!');
                 
                 // Update streak after saving attendance
                 setTimeout(() => {
@@ -3440,6 +3465,7 @@
                 console.error("Error saving attendance: ", error);
                 hideCuteLoader();
                 btn.classList.remove('loading');
+                btn.disabled = false; // Re-enable button on error
                 showToast('Error saving attendance.');
             }
         }
@@ -3499,29 +3525,48 @@
             document.getElementById('weekly-permission').textContent = counts.Permission;
             document.getElementById('weekly-late').textContent = counts.Late;
             
-            // Calculate semester totals for warning system
-            const semesterTotals = {
-                Present: 0,
-                Absent: 0,
-                Permission: 0,
-                Late: 0
-            };
+            // Calculate warnings for each subject independently
+            const currentSemSubjects = allSubjects.filter(s => s.semesterId === currentSemesterId);
+            const warningEl = document.getElementById('weekly-warning');
             
-            currentSemAttendance.forEach(r => {
-                if (semesterTotals.hasOwnProperty(r.status)) {
-                    semesterTotals[r.status]++;
+            if (currentSemSubjects.length === 0) {
+                warningEl.innerHTML = '<div class="no-data-message">No subjects found for this semester.</div>';
+                return;
+            }
+            
+            let warningHtml = '<div style="font-weight: 600; margin-bottom: 1rem;">Subject Warnings:</div>';
+            let hasWarnings = false;
+            
+            currentSemSubjects.forEach(subject => {
+                const subjectAttendance = currentSemAttendance.filter(r => r.subjectId === subject.id);
+                const counts = { Present: 0, Absent: 0, Permission: 0, Late: 0 };
+                
+                subjectAttendance.forEach(r => {
+                    if (counts.hasOwnProperty(r.status)) {
+                        counts[r.status]++;
+                    }
+                });
+                
+                const warning = calculateWarning(counts.Late, counts.Permission, counts.Absent);
+                
+                if (warning.status !== 'Good') {
+                    hasWarnings = true;
+                    warningHtml += `
+                        <div style="margin-bottom: 0.75rem; padding: 0.75rem; border-radius: 8px; background: var(--light-grey); border-left: 4px solid ${warning.color};">
+                            <div style="font-weight: 600; color: ${warning.color};">${subject.name}: ${warning.status}</div>
+                            <div style="font-size: 0.9rem; color: var(--grey-text); margin-top: 0.25rem;">
+                                ${counts.Absent} absent, ${counts.Permission} permission, ${counts.Late} late
+                            </div>
+                        </div>
+                    `;
                 }
             });
             
-            const warning = calculateWarning(semesterTotals.Late, semesterTotals.Permission, semesterTotals.Absent);
-            const warningEl = document.getElementById('weekly-warning');
-            warningEl.innerHTML = `
-                <div style="font-weight: 600; margin-bottom: 0.5rem;">Semester Status:</div>
-                <div style="color: ${warning.color}; font-weight: 500;">${warning.status}</div>
-                <div style="font-size: 0.9rem; color: var(--grey-text); margin-top: 0.5rem;">
-                    Total: ${semesterTotals.Absent} absent, ${semesterTotals.Permission} permission, ${semesterTotals.Late} late
-                </div>
-            `;
+            if (!hasWarnings) {
+                warningEl.innerHTML = '<div class="no-data-message">No warnings! All subjects are in good standing. Keep up the great work! </div>';
+            } else {
+                warningEl.innerHTML = warningHtml;
+            }
         }
         
         document.getElementById('week-selector-dropdown').addEventListener('change', renderWeeklyReportPage);
@@ -3558,7 +3603,7 @@
                     }
                 });
                 
-                // Calculate warning based on SEMESTER TOTALS
+                // Calculate warning based on individual subject totals
                 const warning = calculateWarning(counts.Late, counts.Permission, counts.Absent);
                 
                 return `
@@ -3834,7 +3879,7 @@
                     await addDoc(collection(db, paths.semesters()), semesterData);
                 }
                 btn.classList.remove('loading');
-                showToast('Semester saved! 🌸');
+                showToast('Semester saved!');
                 closeModal('semester-modal');
             } catch (error) {
                 console.error("Error saving semester: ", error);
@@ -3845,14 +3890,36 @@
         
         async function handleDeleteSemester(id) {
             const semester = allSemesters.find(s => s.id === id);
-            const confirmed = await showConfirmModal('Delete Semester', `Are you sure you want to delete "${semester?.name || 'this semester'}"? This action cannot be undone.`);
+            const subjectsToDelete = allSubjects.filter(s => s.semesterId === id);
+            const attendanceToDelete = allAttendance.filter(r => r.semesterId === id);
+            
+            const confirmed = await showConfirmModal('Delete Semester', `Are you sure you want to delete "${semester?.name || 'this semester'}"? This will also delete ${subjectsToDelete.length} subjects and ${attendanceToDelete.length} attendance records. This action cannot be undone.`);
             if (!confirmed) return;
             
             try {
-                await deleteDoc(doc(db, paths.semesterDoc(id)));
-                showToast('Semester deleted.');
+                showCuteLoader();
+                
+                // Delete all attendance records for this semester
+                const attendancePromises = attendanceToDelete.map(record => 
+                    deleteDoc(doc(db, `${paths.attendance()}/${record.id}`))
+                );
+                
+                // Delete all subjects for this semester
+                const subjectPromises = subjectsToDelete.map(subject => 
+                    deleteDoc(doc(db, paths.subjectDoc(subject.id)))
+                );
+                
+                // Delete the semester itself
+                const semesterPromise = deleteDoc(doc(db, paths.semesterDoc(id)));
+                
+                // Execute all deletions
+                await Promise.all([...attendancePromises, ...subjectPromises, semesterPromise]);
+                
+                hideCuteLoader();
+                showToast('Semester and all related data deleted.');
             } catch (error) {
                 console.error("Error deleting semester: ", error);
+                hideCuteLoader();
                 showToast('Error deleting semester.');
             }
         }
